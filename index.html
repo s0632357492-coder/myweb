@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevForge | Futuristic Software Solutions</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600&family=Inter:wght@300;400;600&family=JetBrains+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #020617;
+            --primary: #38bdf8; /* Blue */
+            --accent: #22c55e;
+            --glow: #a855f7; 
+            --neon-purple: #c084fc;
+            --neon-indigo: #818cf8; /* A key Indigo/Blue-Purple */
+            --text: #f8fafc;
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Anuphan', 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Orbitron', 'Anuphan', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        code, .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* --- BACKGROUND PARTICLES --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 1rem 10%;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--primary), var(--neon-indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3));
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .typing-wrap {
+            font-family: 'JetBrains Mono';
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+            height: 1.6em;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-family: 'Orbitron', 'Anuphan', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+            background: #fff;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- SERVICES --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title .underline {
+            width: 80px;
+            height: 4px;
+            background: var(--glow);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(20, 10, 40, 0.4);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-indigo);
+            box-shadow: 0 10px 40px rgba(129, 140, 248, 0.3);
+            background: rgba(129, 140, 248, 0.05);
+        }
+
+        .service-card i {
+            color: var(--neon-indigo);
+            margin-bottom: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.6));
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #b4befe;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--neon-indigo);
+            text-align: left;
+        }
+
+        .price-row {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #d1d5db;
+            margin-bottom: 4px;
+        }
+
+        .price-row strong {
+            color: var(--neon-indigo);
+            font-size: 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 5px rgba(129, 140, 248, 0.4);
+        }
+
+        /* --- PROJECTS --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .project-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(2, 6, 23, 0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .project-item:hover .project-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .tech-tag {
+            font-family: 'JetBrains Mono';
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        /* --- SKILLS --- */
+        .skills-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .skill-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono';
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--glow));
+            width: 0;
+            transition: 1.5s ease-in-out;
+        }
+
+        /* --- CONTACT (FIXED SECTION) --- */
+        .contact-note {
+            text-align: center;
+            color: var(--primary);
+            margin-top: -3rem;
+            margin-bottom: 3rem;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .contact-btns {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            flex-wrap: wrap;         /* Wrap for mobile */
+            gap: 1.5rem;             /* Symmetrical spacing */
+            max-width: 1000px;       /* Ensure container bounds */
+            margin: 0 auto;          /* Center the container block */
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content inside button */
+            gap: 12px;
+            padding: 1rem 1.8rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Anuphan', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            min-width: 200px;        /* Symmetrical visual width */
+        }
+
+        .social-btn.main-contact {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-group { flex-direction: column; }
+            .contact-btns { padding: 0 5%; }
+            .social-btn { width: 100%; } /* Stack fully on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">DevForge</a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#portfolio">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <span class="hero-subtitle">Engineering the Future</span>
+        <h1>Build Powerful Software & Automation</h1>
+        <div class="typing-wrap">
+            <span id="typed"></span>
+        </div>
+        <div class="btn-group">
+            <a href="https://discord.gg/7UxmX8Caph" class="btn btn-primary" target="_blank">Start Project</a>
+            <a href="#services" class="btn btn-secondary">View Services</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-title">
+            <h2>Our Expertise</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <i data-lucide="code-2" size="48"></i>
+                <h3>Web Development</h3>
+                <p>Modern responsive websites and dashboards with futuristic UI.</p>
+                <div class="price-container">
+                    <span class="price-row">ราคาเริ่มต้น: <strong>100 บาท</strong></span>
+                    <span class="price-row">ราคารับจบ: <strong>1,500 บาท</strong></span>
+                </div>
+                <a href="https://discord.gg/7UxmX8Caph" class="btn btn-secondary" target="_blank">Order Now</a>
+            </div>
+
+            <div class="service-card">
+                <i data-lucide="bot" size="48"></i>
+                <h3>Discord Bot Development</h3>
+                <p>Advanced custom bots for moderation, economy, or API tools.</p>
+                <div class="price-container">
+                    <span class="price-row">ราคาเริ่มต้น: <strong>50 บาท</strong></span>
+                    <span class="price-row">ราคารับจบ: <strong>800 บาท</strong></span>
+                </div>
+                <a href="https://discord.gg/7UxmX8Caph" class="btn btn-secondary" target="_blank">Order Now</a>
+            </div>
+
+            <div class="service-card">
+                <i data-lucide="cpu" size="48"></i>
+                <h3>Python Automation</h3>
+                <p>Browser automation, data scraping, and task streamlining.</p>
+                <div class="price-container">
+                    <span class="price-row">ราคาเริ่มต้น: <strong>200 บาท</strong></span>
+                    <span class="price-row">ราคารับจบ: <strong>2,500 บาท</strong></span>
+                </div>
+                <a href="https://discord.gg/7UxmX8Caph" class="btn btn-secondary" target="_blank">Order Now</a>
+            </div>
+
+            <div class="service-card">
+                <i data-lucide="zap" size="48"></i>
+                <h3>Custom Software</h3>
+                <p>Tailor-made software solutions designed for your specific needs.</p>
+                <div class="price-container">
+                    <span class="price-row">ราคาเริ่มต้น: <strong>250 บาท</strong></span>
+                    <span class="price-row">ราคารับจบ: <strong>ประเมินราคาตามงาน</strong></span>
+                </div>
+                <a href="https://discord.gg/7UxmX8Caph" class="btn btn-secondary" target="_blank">Inquire</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-title">
+            <h2>Recent Missions</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="portfolio-grid">
+            <div class="project-item" style="background: linear-gradient(135deg, #0f172a, #38bdf822);">
+                <div class="project-overlay">
+                    <h3>Discord Moderation Bot</h3>
+                    <span class="tech-tag">Node.js / Discord.js</span>
+                </div>
+            </div>
+            <div class="project-item" style="background: linear-gradient(135deg, #0f172a, #38bdf822);">
+                <div class="project-overlay">
+                    <h3>Discord Economy Bot</h3>
+                    <span class="tech-tag">Node.js / MongoDB</span>
+                </div>
+            </div>
+            <div class="project-item" style="background: linear-gradient(135deg, #0f172a, #38bdf822);">
+                <div class="project-overlay">
+                    <h3>Instagram Automation Bot</h3>
+                    <span class="tech-tag">Python / Selenium</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-title">
+            <h2>Core Stack</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="skills-container">
+            <div class="skill-box">
+                <div class="skill-info"><span>Python</span><span>95%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>JavaScript / Node.js</span><span>90%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>Discord.js / API</span><span>92%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="92%"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info"><span>Web Development</span><span>88%</span></div>
+                <div class="progress-bar"><div class="progress-fill" data-width="88%"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-title">
+            <h2>Establish Contact</h2>
+            <div class="underline"></div>
+        </div>
+        <p class="contact-note">ตอบกลับเร็วที่สุดทาง Discord</p>
+        <div class="contact-btns">
+            <a href="https://discord.gg/7UxmX8Caph" class="social-btn main-contact" target="_blank">
+                <i data-lucide="message-square"></i> Discord (หลัก)
+            </a>
+            <a href="https://www.facebook.com/share/1DVcMU33LY/" class="social-btn" target="_blank">
+                <i data-lucide="facebook"></i> Facebook
+            </a>
+            <a href="https://line.me/ti/p/5VdUA2nluH" class="social-btn" target="_blank">
+                <i data-lucide="message-circle"></i> LINE
+            </a>
+            <a href="https://t.me/Sensawai" class="social-btn" target="_blank">
+                <i data-lucide="send"></i> Telegram
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 DevForge Labs. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. Particle Background
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`; 
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // 2. Typing
+        new Typed('#typed', {
+            strings: ['Python Developer', 'Automation Engineer', 'Bot Creator', 'Full Stack Developer'],
+            typeSpeed: 60, backSpeed: 40, loop: true, backDelay: 2000
+        });
+
+        // 3. Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // 4. Scroll Reveal
+        const sr = ScrollReveal({ origin: 'bottom', distance: '60px', duration: 1000, delay: 200, reset: false });
+        sr.reveal('.hero h1', {});
+        sr.reveal('.hero-subtitle', { delay: 100 });
+        sr.reveal('.btn-group', { delay: 400 });
+        sr.reveal('.service-card', { interval: 100 });
+        sr.reveal('.project-item', { interval: 100 });
+        sr.reveal('.section-title', {});
+        sr.reveal('.contact-note', { delay: 300 });
+
+        // 5. Skills
+        const skillSection = document.getElementById('skills');
+        const progressFills = document.querySelectorAll('.progress-fill');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    progressFills.forEach(fill => { fill.style.width = fill.getAttribute('data-width'); });
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(skillSection);
+    </script>
+</body>
+</html>
