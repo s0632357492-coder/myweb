@@ -14,11 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
 
     <style>
-        /* --- CORE DESIGN SYSTEM --- 
-           Architecture: Atomic CSS Variables
-           MODIFICATION: Global UI Scale Down (Approx 20% Reduction)
-           DOCUMENTATION: System maintained by SensaYo Labs Dev Team
-        */
+        /* --- CORE DESIGN SYSTEM --- */
         :root {
             --bg: #020617;
             --primary: #00f2ff; 
@@ -35,12 +31,10 @@
             --font-mono: 'JetBrains Mono', monospace;
             --font-future: 'Orbitron', sans-serif;
             
-            /* UI Scaling Factor: 0.8x applied to base dimensions */
             --base-unit: 0.8rem;
-            --section-pad: 120px; /* Reduced from 150px */
-            --nav-height: 1.4rem; /* Reduced from 1.8rem */
+            --section-pad: 120px;
+            --nav-height: 1.4rem;
 
-            /* Advanced Animation Constants */
             --ease-in-out-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
             --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --glow-intensity: 0.4;
@@ -54,8 +48,15 @@
             scroll-behavior: smooth;
         }
 
+        /* FIX: Prevent horizontal overflow on small devices */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         ::-webkit-scrollbar {
-            width: 6.4px; /* Scaled down from 8px */
+            width: 6.4px;
         }
         ::-webkit-scrollbar-track {
             background: var(--bg);
@@ -73,16 +74,16 @@
             color: var(--text);
             font-family: var(--font-main);
             overflow-x: hidden;
-            line-height: 1.6; /* Adjusted for smaller text scale */
+            line-height: 1.6;
             cursor: none;
             -webkit-font-smoothing: antialiased;
-            font-size: 0.8rem; /* Global 20% font reduction base */
+            font-size: 0.8rem;
         }
 
         /* --- INTERACTIVE CURSOR ENGINE --- */
         #cursor-dot {
-            width: 6.4px; /* Scaled */
-            height: 6.4px; /* Scaled */
+            width: 6.4px;
+            height: 6.4px;
             background: var(--primary);
             position: fixed;
             border-radius: 50%;
@@ -91,8 +92,8 @@
             transition: transform 0.1s ease-out;
         }
         #cursor-outline {
-            width: 32px; /* Scaled from 40px */
-            height: 32px; /* Scaled from 40px */
+            width: 32px;
+            height: 32px;
             border: 1.6px solid var(--primary);
             position: fixed;
             border-radius: 50%;
@@ -106,7 +107,7 @@
         h1, h2, h3, .logo {
             font-family: var(--font-future);
             text-transform: uppercase;
-            letter-spacing: 2px; /* Scaled from 2.5px */
+            letter-spacing: 2px;
         }
 
         /* --- DYNAMIC BACKGROUND CANVAS --- */
@@ -125,7 +126,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.4rem 10%; /* Scaled down */
+            /* FIX: Ensure nav doesn't overflow viewport on iPhone SE */
+            max-width: 100vw;
+            padding: 1.4rem 10%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -136,37 +139,37 @@
         nav.scrolled {
             background: rgba(2, 6, 23, 0.92);
             backdrop-filter: blur(16px);
-            padding: 0.96rem 10%; /* Scaled down */
+            padding: 0.96rem 10%;
             border-bottom: 1px solid var(--card-border);
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
 
         .logo {
-            font-size: 1.12rem; /* Scaled from 1.4rem */
+            font-size: 1.12rem;
             font-weight: 700; 
             color: var(--primary);
             text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 9.6px; /* Scaled */
+            gap: 9.6px;
         }
 
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 2.4rem; /* Scaled from 3rem */
+            gap: 2.4rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem; /* Scaled from 2.5rem */
+            gap: 2rem;
         }
 
         .nav-links a {
             color: var(--text-dim);
             text-decoration: none;
-            font-size: 0.68rem; /* Scaled from 0.85rem */
+            font-size: 0.68rem;
             font-weight: 500;
             letter-spacing: 1px;
             transition: var(--transition);
@@ -199,12 +202,12 @@
             align-items: center;
             background: rgba(0, 242, 255, 0.08);
             border: 1px solid var(--card-border);
-            border-radius: 40px; /* Scaled */
-            padding: 4px; /* Scaled */
+            border-radius: 40px;
+            padding: 4px;
             position: relative;
             cursor: pointer;
             transition: var(--transition);
-            width: 72px; /* Scaled from 90px */
+            width: 72px;
             justify-content: space-around;
             user-select: none;
         }
@@ -216,7 +219,7 @@
 
         .lang-switcher span {
             font-family: var(--font-mono);
-            font-size: 0.6rem; /* Scaled from 0.75rem */
+            font-size: 0.6rem;
             font-weight: 800;
             z-index: 2;
             transition: color 0.4s ease;
@@ -229,7 +232,7 @@
 
         .lang-toggle-bg {
             position: absolute;
-            width: 33.6px; /* Scaled from 42px */
+            width: 33.6px;
             height: calc(100% - 8px);
             background: var(--primary);
             border-radius: 40px;
@@ -240,32 +243,32 @@
         }
 
         [data-lang="th"] .lang-toggle-bg {
-            transform: translateX(30.4px); /* Adjusted for scaling */
+            transform: translateX(30.4px);
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 1.6rem;
+            padding: 2rem 1.6rem;
         }
 
         .hero-subtitle {
-            font-size: 0.72rem; /* Scaled from 0.9rem */
+            font-size: 0.72rem;
             color: var(--primary);
             margin-bottom: 1.2rem;
             font-weight: 700;
-            letter-spacing: 4.8px; /* Scaled from 6px */
+            letter-spacing: 4.8px;
             text-transform: uppercase;
             text-shadow: 0 0 12px rgba(0, 242, 255, 0.4);
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 4.8vw, 3.6rem); /* Scaled from 2.5rem-4.5rem */
+            font-size: clamp(2rem, 4.8vw, 3.6rem);
             margin-bottom: 1.6rem;
             background: linear-gradient(to right, #ffffff, var(--primary), var(--neon-indigo));
             -webkit-background-clip: text;
@@ -277,22 +280,21 @@
             align-items: center;
         }
 
-        /* HERO TITLE MODIFICATION: NEW LINE FOR DEVFORGE */
         .hero h1 span.main-title {
             display: block;
         }
         .hero h1 span.sub-brand {
             display: block;
-            font-size: 70%; /* 30% smaller as requested */
+            font-size: 70%;
             opacity: 0.75;
-            filter: blur(0.2px); /* Slight glow reduction vibe */
+            filter: blur(0.2px);
             margin-top: 0.4rem;
             letter-spacing: 1.2px;
         }
 
         .typing-wrap {
             font-family: var(--font-mono);
-            font-size: 1.28rem; /* Scaled from 1.6rem */
+            font-size: 1.28rem;
             color: var(--accent); 
             margin-bottom: 2.8rem;
             min-height: 1.6em;
@@ -301,16 +303,16 @@
 
         .btn-group {
             display: flex;
-            gap: 1.6rem; /* Scaled from 2rem */
+            gap: 1.6rem;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .btn {
-            padding: 0.88rem 2.24rem; /* Scaled from 1.1rem 2.8rem */
+            padding: 0.88rem 2.24rem;
             border-radius: 5px;
             font-family: var(--font-future);
-            font-size: 0.64rem; /* Scaled from 0.8rem */
+            font-size: 0.64rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -349,17 +351,17 @@
 
         /* --- SECTION STRUCTURE --- */
         section {
-            padding: 120px 10%; /* Scaled down from 150px */
+            padding: 120px 10%;
             position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 6.4rem; /* Scaled from 8rem */
+            margin-bottom: 6.4rem;
         }
 
         .section-title h2 {
-            font-size: 2.24rem; /* Scaled from 2.8rem */
+            font-size: 2.24rem;
             margin-bottom: 1.2rem;
             background: linear-gradient(to bottom, #ffffff, #94a3b8);
             -webkit-background-clip: text;
@@ -368,8 +370,8 @@
         }
 
         .section-title .underline {
-            width: 80px; /* Scaled from 100px */
-            height: 3.2px; /* Scaled from 4px */
+            width: 80px;
+            height: 3.2px;
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
             margin: 0 auto;
         }
@@ -377,14 +379,14 @@
         /* --- SERVICES / EXPERTISE GRID --- */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(256px, 1fr)); /* Scaled minmax from 320px */
-            gap: 2.4rem; /* Scaled from 3rem */
+            grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+            gap: 2.4rem;
         }
 
         .service-card {
             background: var(--card-bg);
-            padding: 2.8rem 2rem; /* Scaled from 3.5rem 2.5rem */
-            border-radius: 16px; /* Scaled from 20px */
+            padding: 2.8rem 2rem;
+            border-radius: 16px;
             border: 1px solid var(--card-border);
             transition: var(--transition);
             display: flex;
@@ -412,20 +414,20 @@
         }
 
         .service-card:hover {
-            transform: translateY(-12px); /* Scaled */
+            transform: translateY(-12px);
             border-color: var(--primary);
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.7);
         }
 
         .service-card i {
             color: var(--primary);
-            margin-bottom: 2rem; /* Scaled */
+            margin-bottom: 2rem;
             filter: drop-shadow(0 0 12px rgba(0, 242, 255, 0.6));
         }
 
         .service-card h3 {
             margin-bottom: 1.2rem;
-            font-size: 1.12rem; /* Scaled from 1.4rem */
+            font-size: 1.12rem;
             color: #ffffff;
             text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
         }
@@ -433,15 +435,15 @@
         .service-card p {
             color: var(--text-dim);
             margin-bottom: 2rem;
-            font-size: 0.76rem; /* Scaled from 0.95rem */
+            font-size: 0.76rem;
             line-height: 1.7;
         }
 
         /* --- PRICE COMPONENT --- */
         .price-container {
             background: rgba(0, 0, 0, 0.4);
-            padding: 1.2rem; /* Scaled from 1.5rem */
-            border-radius: 10px; /* Scaled from 12px */
+            padding: 1.2rem;
+            border-radius: 10px;
             margin-bottom: 2rem;
             border-left: 4px solid var(--primary);
         }
@@ -450,7 +452,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.72rem; /* Scaled */
+            font-size: 0.72rem;
             margin-bottom: 8px;
         }
 
@@ -459,23 +461,23 @@
         .price-row strong {
             color: var(--primary);
             font-family: var(--font-mono);
-            font-size: 0.88rem; /* Scaled from 1.1rem */
+            font-size: 0.88rem;
             text-shadow: 0 0 8px rgba(0, 242, 255, 0.5);
         }
 
         /* --- PORTFOLIO MISSIONS --- */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Scaled from 350px */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .project-item {
             position: relative;
-            border-radius: 13px; /* Scaled */
+            border-radius: 13px;
             overflow: hidden;
-            height: 256px; /* Scaled from 320px */
-            background: #0f172a;
+            height: 256px;
+            background: #0f172a; /* FIX: Image fallback background color */
             border: 1px solid var(--card-border);
             cursor: pointer;
             transition: var(--transition);
@@ -493,6 +495,16 @@
             transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
             filter: brightness(0.4) grayscale(0.3);
             will-change: transform;
+            z-index: 1;
+        }
+
+        /* FIX: Render improvement for fallback images */
+        .project-img-base img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0; /* Invisible but helps with loading logic or SEO */
         }
 
         .project-item:hover .project-img-base {
@@ -503,7 +515,7 @@
         .project-overlay {
             position: absolute;
             inset: 0;
-            padding: 2.4rem; /* Scaled from 3rem */
+            padding: 2.4rem;
             background: linear-gradient(to top, rgba(2, 6, 23, 1) 10%, transparent);
             display: flex;
             flex-direction: column;
@@ -512,7 +524,7 @@
         }
 
         .project-item h3 {
-            font-size: 1.2rem; /* Scaled from 1.5rem */
+            font-size: 1.2rem;
             color: #ffffff;
             margin-bottom: 0.8rem;
             transform: translateY(16px);
@@ -538,7 +550,7 @@
 
         .tech-tag {
             font-family: var(--font-mono);
-            font-size: 0.56rem; /* Scaled from 0.7rem */
+            font-size: 0.56rem;
             padding: 4px 9.6px;
             background: rgba(0, 242, 255, 0.15);
             border: 1px solid var(--card-border);
@@ -549,7 +561,7 @@
 
         /* --- SKILL ARCHITECTURE --- */
         .skills-container {
-            max-width: 760px; /* Scaled from 950px */
+            max-width: 760px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -566,12 +578,12 @@
             margin-bottom: 0.8rem;
             font-family: var(--font-mono);
             font-weight: 500; 
-            font-size: 0.8rem; /* Scaled from 1rem */
+            font-size: 0.8rem;
             color: #ffffff;
         }
 
         .progress-bar {
-            height: 6.4px; /* Scaled from 8px */
+            height: 6.4px;
             background: rgba(255, 255, 255, 0.12);
             border-radius: 10px;
             overflow: hidden;
@@ -590,14 +602,14 @@
         /* --- CONTACT TERMINAL --- */
         .contact-container {
             text-align: center;
-            max-width: 640px; /* Scaled from 800px */
+            max-width: 640px;
             margin: 0 auto;
         }
 
         .contact-note {
             color: var(--primary); 
             font-weight: 700;
-            margin-bottom: 4rem; /* Scaled from 5rem */
+            margin-bottom: 4rem;
             letter-spacing: 2.4px;
             font-family: var(--font-mono);
             text-shadow: 0 0 12px rgba(0, 242, 255, 0.5);
@@ -629,7 +641,7 @@
             text-decoration: none;
             font-weight: 700;
             transition: var(--transition);
-            min-width: 208px; /* Scaled from 260px */
+            min-width: 208px;
             font-size: 0.72rem;
             will-change: transform;
         }
@@ -650,7 +662,7 @@
             text-align: center;
             border-top: 1px solid var(--card-border);
             color: #64748b; 
-            font-size: 0.72rem; /* Scaled from 0.9rem */
+            font-size: 0.72rem;
             letter-spacing: 1.2px;
         }
 
@@ -669,10 +681,28 @@
             body { cursor: auto; }
             #cursor-dot, #cursor-outline { display: none; }
             .section-title h2 { font-size: 1.76rem; }
+            /* FIX: Ensure content doesn't hit edge of screen on mobile */
+            .contact-container { padding: 0 1rem; }
+        }
+
+        /* FIX: Disable hover effects on mobile to prevent glitchy UI */
+        @media (hover: none) {
+            .btn:hover,
+            .service-card:hover,
+            .project-item:hover,
+            .social-btn:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        /* FIX: Safe ScrollReveal fallback - ensure visibility if JS fails */
+        .reveal-on-scroll { 
+            opacity: 1 !important; 
+            visibility: visible !important;
         }
 
         /* Utility Classes */
-        .reveal-on-scroll { opacity: 0; }
         .glow-text { text-shadow: 0 0 8px currentColor; }
         .neon-border { border: 1px solid var(--primary); box-shadow: 0 0 8px var(--primary); }
         
@@ -688,9 +718,6 @@
             font-weight: 400; 
         }
 
-        /* --- EXTENDED UTILITY ARCHITECTURE ---
-           Added to maintain scale and structure for the 1000+ lines threshold
-        */
         .flex-center { display: flex; align-items: center; justify-content: center; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -790,7 +817,9 @@
         </div>
         <div class="portfolio-grid">
             <div class="project-item">
-                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483096328526499891/image.png?ex=69b95897&is=69b80717&hm=7d50e200d6d94f694dbd4cf74fa6746908052fc0185ffd9de5cdebff639d6d4a&=&format=webp&quality=lossless');"></div>
+                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483096328526499891/image.png?ex=69b95897&is=69b80717&hm=7d50e200d6d94f694dbd4cf74fa6746908052fc0185ffd9de5cdebff639d6d4a&=&format=webp&quality=lossless');">
+                    <img src="https://media.discordapp.net/attachments/1459913871782580489/1483096328526499891/image.png?ex=69b95897&is=69b80717&hm=7d50e200d6d94f694dbd4cf74fa6746908052fc0185ffd9de5cdebff639d6d4a&=&format=webp&quality=lossless" alt="Portfolio 1" loading="lazy" onerror="this.parentElement.style.backgroundColor='#1e293b'">
+                </div>
                 <div class="project-overlay">
                     <h3 data-i18n="port1_title">Aesthetic Community Hub</h3>
                     <div class="tech-stack">
@@ -801,7 +830,9 @@
             </div>
 
             <div class="project-item">
-                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483097215390978208/image.png?ex=69b9596a&is=69b807ea&hm=c80f45ee4d7b81545c14953a9fa3bfd213e13a4e54fe6fc89f97668a63e9ffb4&=&format=webp&quality=lossless&width=817&height=721');"></div>
+                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483097215390978208/image.png?ex=69b9596a&is=69b807ea&hm=c80f45ee4d7b81545c14953a9fa3bfd213e13a4e54fe6fc89f97668a63e9ffb4&=&format=webp&quality=lossless&width=817&height=721');">
+                    <img src="https://media.discordapp.net/attachments/1459913871782580489/1483097215390978208/image.png?ex=69b9596a&is=69b807ea&hm=c80f45ee4d7b81545c14953a9fa3bfd213e13a4e54fe6fc89f97668a63e9ffb4&=&format=webp&quality=lossless&width=817&height=721" alt="Portfolio 2" loading="lazy" onerror="this.parentElement.style.backgroundColor='#1e293b'">
+                </div>
                 <div class="project-overlay">
                     <h3 data-i18n="port2_title">Automated Terminal UI</h3>
                     <div class="tech-stack">
@@ -812,7 +843,9 @@
             </div>
 
             <div class="project-item">
-                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483096901598445578/image.png?ex=69b9591f&is=69b8079f&hm=9c43f80f7d12883b5ae428b5a79994add2c50fd769eefa83193568a6ea95413e&=&format=webp&quality=lossless');"></div>
+                <div class="project-img-base" style="background-image: url('https://media.discordapp.net/attachments/1459913871782580489/1483096901598445578/image.png?ex=69b9591f&is=69b8079f&hm=9c43f80f7d12883b5ae428b5a79994add2c50fd769eefa83193568a6ea95413e&=&format=webp&quality=lossless');">
+                    <img src="https://media.discordapp.net/attachments/1459913871782580489/1483096901598445578/image.png?ex=69b9591f&is=69b8079f&hm=9c43f80f7d12883b5ae428b5a79994add2c50fd769eefa83193568a6ea95413e&=&format=webp&quality=lossless" alt="Portfolio 3" loading="lazy" onerror="this.parentElement.style.backgroundColor='#1e293b'">
+                </div>
                 <div class="project-overlay">
                     <h3 data-i18n="port3_title">Economy & Banking Bot</h3>
                     <div class="tech-stack">
@@ -882,10 +915,6 @@
     </footer>
 
     <script>
-        /**
-         * LANGUAGE DICTIONARY SYSTEM
-         * Refined copy for simplicity and professional impact.
-         */
         const translations = {
             en: {
                 nav_expertise: "Services",
@@ -990,12 +1019,10 @@
                 labelEn.classList.add('active-lang');
             }
 
-            // Update Translatable Elements
             const translatable = document.querySelectorAll('[data-i18n]');
             translatable.forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 
-                // Special handling for the split hero title
                 if (key === 'hero_title') {
                     const main = el.querySelector('.main-title');
                     const sub = el.querySelector('.sub-brand');
@@ -1062,7 +1089,7 @@
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.2 + 0.4; /* Scaled down */
+                this.size = Math.random() * 1.2 + 0.4;
                 this.speedX = (Math.random() - 0.5) * 0.35; 
                 this.speedY = (Math.random() - 0.5) * 0.35;
                 this.opacity = Math.random() * 0.6 + 0.1;
@@ -1082,7 +1109,11 @@
             }
         }
 
-        for (let i = 0; i < 150; i++) {
+        /* FIX: Mobile particle optimization - reduce count on touch devices */
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const particleCount = isTouchDevice ? 60 : 150;
+
+        for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
 
@@ -1115,7 +1146,7 @@
             const posY = e.clientY;
             dot.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
             outline.animate({
-                transform: `translate3d(${posX - 16}px, ${posY - 16}px, 0)` /* Adjusted for scale */
+                transform: `translate3d(${posX - 16}px, ${posY - 16}px, 0)`
             }, { duration: 500, fill: "forwards", easing: "ease-out" });
         });
 
@@ -1144,21 +1175,25 @@
         }
 
         // --- SCROLL REVEAL CONFIGURATION ---
-        const sr = ScrollReveal({ 
-            origin: 'bottom', 
-            distance: '48px', /* Scaled distance */
-            duration: 1200, 
-            delay: 150, 
-            reset: false,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
-        });
-        
-        sr.reveal('.hero h1', { delay: 300 });
-        sr.reveal('.hero-subtitle', { delay: 150, origin: 'top' });
-        sr.reveal('.service-card', { interval: 150 });
-        sr.reveal('.project-item', { interval: 150, scale: 0.9 });
-        sr.reveal('.skill-box', { interval: 100 });
-        sr.reveal('.social-btn', { interval: 100, origin: 'right' });
+        try {
+            const sr = ScrollReveal({ 
+                origin: 'bottom', 
+                distance: '48px',
+                duration: 1200, 
+                delay: 150, 
+                reset: false,
+                easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            });
+            
+            sr.reveal('.hero h1', { delay: 300 });
+            sr.reveal('.hero-subtitle', { delay: 150, origin: 'top' });
+            sr.reveal('.service-card', { interval: 150 });
+            sr.reveal('.project-item', { interval: 150, scale: 0.9 });
+            sr.reveal('.skill-box', { interval: 100 });
+            sr.reveal('.social-btn', { interval: 100, origin: 'right' });
+        } catch (e) {
+            console.warn("ScrollReveal failed to load, using CSS fallback.");
+        }
 
         const skillSection = document.getElementById('skills');
         const progressFills = document.querySelectorAll('.progress-fill');
@@ -1180,27 +1215,8 @@
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             initTypedEffect();
-            console.log("%cSensaYo Labs Terminal: System Online. UI Scale: 0.8x. Image Swap Protocol Complete.", "color: #00f2ff; font-weight: bold; font-size: 11px;");
+            console.log("%cSensaYo Labs Terminal: System Online. Mobile Optimized. UI Scale: 0.8x.", "color: #00f2ff; font-weight: bold; font-size: 11px;");
         });
-
-        /* EXTENDED ARCHITECTURE COMMENTS (MAINTAINING FILE DEPTH):
-           - Scale Audit: All rem/px values adjusted by factor of 0.8.
-           - Layout Integrity: Flex gap and grid definitions modified to prevent "cramped" feel.
-           - Hierarchy Fix: "(Devforge)" encapsulated in sub-brand class with restricted opacity.
-           - Interaction Tuning: Cursor outline offset recalculated for 32px diameter.
-           - Typography: Clamp values for Hero Title tightened for smaller viewports.
-           - Visual Balance: Section titles reduced but underline thickness kept for presence.
-           - Performance: Reduced particle size slightly to match new visual density.
-           - Future Proofing: Root variables used for consistent scaling.
-           - Accessibility: Contrast ratios maintained despite font size reduction.
-           - Maintenance Log: Updated Project Tech Stack per Senior Developer Request.
-           - Maintenance Log: Inverted Project Background Assets to align with new branding direction.
-           - Maintenance Log: Tech Tag font consistency verified across mobile safari.
-           - Maintenance Log: Particle frequency optimized for 120Hz displays.
-           - Maintenance Log: Schema.org JSON-LD data reflects Devforge association.
-           - Maintenance Log: Thai translation for banking bot titles kept semantic.
-           - Maintenance Log: CSS Grid fallback implemented for legacy engine compatibility.
-        */
     </script>
     
     <script type="application/ld+json">
